@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="MiniMart.vcxproj" />
+  <Project Path="MiniMart.vcxproj" Id="5158ca7f-1fb0-4c16-b22f-f86a9596c94b" />
 </Solution>

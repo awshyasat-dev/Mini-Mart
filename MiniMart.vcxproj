@@ -139,7 +139,11 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="MiniMart.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ShelfLocation.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ShelfLocation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
