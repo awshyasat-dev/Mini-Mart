@@ -12,8 +12,10 @@ class ShelfLocation
 		int slotNumber;
 
 	public:
+		// Default Constructor
 		ShelfLocation() = default;
 
+		// Display Function
 		void displayLocation() const;
 };
 #endif

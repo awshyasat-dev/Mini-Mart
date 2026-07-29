@@ -7,5 +7,8 @@
 using namespace std;
 
 void ShelfLocation::displayLocation() const {
+	/*
+	Information display
+	*/
 	cout << "Aisle: " << aisleLetter << ", Slot: " << slotNumber << endl;
 }

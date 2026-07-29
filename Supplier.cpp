@@ -8,6 +8,7 @@ using namespace std;
 
 // Constructor
 Supplier::Supplier(const char* name, const char* phone, const char* _address) {
+	// Calculate the length of name
 	int sizeName;
 	for (sizeName = 0; name[sizeName] != '\0'; sizeName++);
 	companyName = new char[sizeName + 1];
@@ -16,6 +17,7 @@ Supplier::Supplier(const char* name, const char* phone, const char* _address) {
 		companyName[i] = name[i];
 	companyName[sizeName] = '\0';
 
+	// Calculate the length of phone number
 	int sizePhone;
 	for (sizePhone = 0; phone[sizePhone] != '\0'; sizePhone++);
 	phoneNumber = new char[sizePhone + 1];
@@ -24,6 +26,7 @@ Supplier::Supplier(const char* name, const char* phone, const char* _address) {
 		phoneNumber[i] = phone[i];
 	phoneNumber[sizePhone] = '\0';
 
+	// Calculate the length of address
 	int sizeAddress;
 	for (sizeAddress = 0; _address[sizeAddress] != '\0'; sizeAddress++);
 	address = new char[sizeAddress + 1];
@@ -41,6 +44,7 @@ Supplier::Supplier(const char* name, const char* phone, const char* _address) {
 void Supplier::setCompanyName(const char* name) {
 	delete[] companyName;
 
+	// Calculate the length of name
 	int sizeName;
 	for (sizeName = 0; name[sizeName] != '\0'; sizeName++);
 	companyName = new char[sizeName + 1];
@@ -53,6 +57,7 @@ void Supplier::setCompanyName(const char* name) {
 void Supplier::setPhoneNumber(const char* phone) {
 	delete[] phoneNumber;
 
+	// Calculate the length of phone number
 	int sizePhone;
 	for (sizePhone = 0; phone[sizePhone] != '\0'; sizePhone++);
 	phoneNumber = new char[sizePhone + 1];
@@ -65,6 +70,7 @@ void Supplier::setPhoneNumber(const char* phone) {
 void Supplier::setAddress(const char* _address) {
 	delete[] address;
 
+	// Calculate the length of address
 	int sizeAddress;
 	for (sizeAddress = 0; _address[sizeAddress] != '\0'; sizeAddress++);
 	address = new char[sizeAddress + 1];
@@ -92,7 +98,11 @@ const int* Supplier::getBarcodes() const {
 }
 
 // Functions and Methods
-void Supplier::addSuppliedProduct(int barcode) {
+void Supplier::addSuppliedProduct(int barcode) { 
+	/*
+	Add a new barcode 
+	*/
+
 	int* temp = new int[barcodeCount + 1];
 	for (int i = 0; i < barcodeCount; i++)
 		temp[i] = barcodes[i];
@@ -104,6 +114,9 @@ void Supplier::addSuppliedProduct(int barcode) {
 }
 
 void Supplier::displayInfo() const {
+	/*
+	Information display
+	*/
 	cout << "Company name: " << companyName
 		<< "\nPhone number: " << phoneNumber
 		<< "\nAddress: " << address
