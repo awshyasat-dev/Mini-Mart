@@ -7,7 +7,7 @@
 
 class Product
 {
-protected:
+private:
 	const int barcode;
 	char name[100];
 	double price;

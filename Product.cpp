@@ -67,19 +67,27 @@ Product::Product(const Product& other) :
     // Here because we didn't cover the Rule of three and string library
     // must use for loop instead of string library
     // and dot method instead of rule of three
-    int descCount = 0;
 
-    for (int i = 0; other.description[i] != '\0'; i++) {
-        descCount++;
+    if (other.description != nullptr) {
+        int descCount = 0;
+
+
+        for (int i = 0; other.description[i] != '\0'; i++) {
+            descCount++;
+        }
+
+        description = new char[descCount + 1];
+
+        for (int i = 0; i <= descCount; i++) {
+            description[i] = other.description[i];
+        }
     }
-
-    description = new char[descCount + 1];
-
-    for (int i = 0; i <= descCount; i++) {
-        description[i] = other.description[i];
+    else {
+        description = nullptr;
     }
     cout << "A product has been copied\n" << endl;
     productCounter++;
+
 
 }
 
@@ -88,6 +96,7 @@ Product::Product(const Product& other) :
 Product::~Product() {
     delete[] description;
     cout << "A product has been removed\n" << endl;
+    productCounter--;
 }
 
 //Setters
