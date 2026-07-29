@@ -20,13 +20,13 @@ public:
 	Product(int _barcode);
 	Product(int _barcode, const char* _name, double _price, int _inStock, const char* _description);
 	Product(const Product& other);
-	
+
 	//Destructor
 
 	virtual ~Product();
 
 	//Setters
-	
+
 	//must return Product to allow chained setters
 	Product& setName(const char* newName);
 	Product& setPrice(double newPrice);

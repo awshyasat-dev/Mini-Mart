@@ -35,7 +35,7 @@ Product::Product(int _barcode, const char* _name, double _price, int _inStock, c
 
     int descCount = 0;
 
-    for(int i = 0; _description[i] != '\0'; i++) {
+    for (int i = 0; _description[i] != '\0'; i++) {
         descCount++;
     }
 
@@ -156,7 +156,7 @@ bool Product::isSameItem(const Product& other) const {
 }
 
 double Product::totalStockValue() const {
-   return price * inStock;
+    return price * inStock;
 }
 
 void Product::displayInfo() const {

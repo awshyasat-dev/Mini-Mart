@@ -35,5 +35,8 @@
     <ClInclude Include="Supplier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Product.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
