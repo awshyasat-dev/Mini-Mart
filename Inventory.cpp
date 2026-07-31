@@ -18,6 +18,8 @@ Inventory::Inventory(int size) {
 
 	for (int i = 0; i < 50; i++)
 		shelf[i] = nullptr;
+
+	cout << "Inventory created" << endl;
 }
 
 // Getters
@@ -93,7 +95,7 @@ Product* Inventory::findByBarcode(int barcode) const {
 	return nullptr;
 }
 
-bool namesMthech(const char* first, const char* last) {
+bool namesMatch(const char* first, const char* last) {
 	/*
 		Compares two strings character by character
 	*/
@@ -109,12 +111,12 @@ bool namesMthech(const char* first, const char* last) {
 Product* Inventory::findByName(char name[]) const {
 	// Search the shelf
 	for (int i = 0; i < 50; i++)
-		if (shelf[i] != nullptr && namesMthech(shelf[i]->getName(), name))
+		if (shelf[i] != nullptr && namesMatch(shelf[i]->getName(), name))
 			return shelf[i];
 
 	// Search the warehouse
 	for (int i = 0; i < warehouseSize; i++) {
-		if (warehouse[i] != nullptr && namesMthech(warehouse[i]->getName(), name))
+		if (warehouse[i] != nullptr && namesMatch(warehouse[i]->getName(), name))
 			return warehouse[i];
 	}
 
@@ -178,4 +180,6 @@ Inventory::~Inventory() {
 
 	// Delete warehouse 
 	delete[] warehouse;
+
+	cout << "Inventory destroyed" << endl;
 }

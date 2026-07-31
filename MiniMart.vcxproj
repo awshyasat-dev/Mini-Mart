@@ -143,12 +143,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Product.cpp" />
     <ClCompile Include="ShelfLocation.cpp" />
+    <ClCompile Include="Store.cpp" />
     <ClCompile Include="Supplier.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Product.h" />
     <ClInclude Include="ShelfLocation.h" />
+    <ClInclude Include="Store.h" />
     <ClInclude Include="Supplier.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
