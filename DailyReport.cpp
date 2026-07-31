@@ -49,7 +49,7 @@ void DailyReport::generate(Inventory& inventory, Order** orders, int orderCount)
         for (int j = 0; j < orders[i]->ItemCount; j++) {
 
             // Get a pointer to the ordered product
-            Product* orderedProduct = &(orders[i]->product[j]);
+            Product* orderedProduct = (orders[i]->product[j]);
             int requestedQty = orders[i]->quantities[j];
 
             // Search the inventory

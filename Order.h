@@ -1,54 +1,47 @@
+// 20250410 Omar Mustafa Khalaf
+// 20250226 Basel Ahmed Alquoqa
+// 20250356 Aws Hamdan Al Hiyasat
 
-
-//Basel Alquoqa 20250226
-//Aws Hyasat 20250356
-//Omar Khalaf 20250410
 #ifndef order_h
 #define order_h
 
 #include "Product.h"
-#include <string>
+#include "Inventory.h"
+
 class Order {
 private:
-	//data members
-	const int Order_number;
-	char* Customer_name;
-	Product* product;
-	int ItemCount;
-	int* quantities;
-	int capacity;
+    const int Order_number;
+    char* Customer_name;
+    Product** product;
+    int ItemCount;
+    int* quantities;
+    int capacity;
+    static int Counter;
 
-	static int Counter;
 public:
-	//default-parametrized constructor
-	Order(const char* name = "");
+    Order(const char* name = "");
+    Order(const Order& other);
+    ~Order();
 
-	//copy constructor
-	Order(const Order& other);
-	//destructor
-	~Order();
+    void addItem(Product* p, int quantity);
+    void mergeWith(const Order& other);
+    void complete(Inventory& inventory);
+    double total();
+    void displayOrder();
+    int getOrderNumber() const;
 
-	//member functions
-	void addItem(const Product& p, int quantity);
-	void mergeWith(const Order& other);
-	void complete(Inventory& inventory);
-	double total();
-	void displayOrder();
+    // Friend class
+    /*
+        - DailyReport is granted friend access to read private order data (items, quantities)
+            because a daily report must compare orders against inventory as a whole
 
-	//getter
-	int getOrderNumber() const;
+        - This is safe because access is limited to exactly one named class (DailyReport)
+            unlike making the members public which would expose them to the entire program.
+            DailyReport only READS this data to generate the report, it never modifies
+            Order's private members, so Order's invariants remain fully protected
+    */
+    friend class DailyReport;
 
-	// Friend class
-	/*
-		- DailyReport is granted friend access to read private order data (items, quantities)
-		  because a daily report must compare orders against inventory as a whole
-
-		- This is safe because access is limited to exactly one named class (DailyReport)
-		  unlike making the members public which would expose them to the entire program.
-		  DailyReport only READS this data to generate the report, it never modifies
-		  Order's private members, so Order's invariants remain fully protected
-	*/
-	friend class DailyReport;
 };
 
-#endif 
+#endif
