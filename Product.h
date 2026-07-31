@@ -43,7 +43,7 @@ public:
 	//units = 1 to acheive -> addStock() with no para adds 1
 	void addStock(int units = 1);
 	bool isSameItem(const Product& other) const;
-	double totalStockValue() const;
+	virtual double totalStockValue() const;
 	virtual void displayInfo() const;
 	static int getProductCounter();
 };
