@@ -1,3 +1,4 @@
+
 // 20250410 Omar Mustafa Khalaf
 // 20250226 Basel Ahmed Alquoqa
 // 20250356 Aws Hamdan Al Hiyasat
@@ -14,7 +15,7 @@ Label::Label() {
     cout << "A Label has been created\n" << endl;
 }
 
-Label::Label(const char* _label){
+Label::Label(const char* _label) {
 
     int countChar = 0;
     for (int i = 0; _label[i] != '\0'; i++) {
@@ -27,6 +28,12 @@ Label::Label(const char* _label){
         labelText[i] = _label[i];
     }
     cout << "A Label has been created\n" << endl;
+}
+//Destructors
+Label::~Label() {
+    delete[] labelText;
+    cout << "A Label has been removed\n" << endl;
+
 }
 
 //Getters

@@ -6,7 +6,8 @@
 #define BOXEDPRODUCT_H
 #include "ShelfLocation.h"
 #include "Product.h"
-class BoxedProduct : public Product {
+#include "Label.h"
+class BoxedProduct : public Product, public Label {
 
 private:
 	double weight;
@@ -15,7 +16,7 @@ private:
 public:
 	//Constructors
 	BoxedProduct(int _barcode);
-	BoxedProduct(int _barcode, const char* _name, double _price, int _inStock, const char* _description, double _weight, char _aisle, int _slot);
+	BoxedProduct(int _barcode, const char* _name, double _price, int _inStock, const char* _description, double _weight, char _aisle, int _slot, const char* _label);
 
 	//Destructor
 	~BoxedProduct();

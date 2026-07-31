@@ -15,12 +15,15 @@ public:
 	Label();
 	Label(const char* _label);
 
+	//Destructors
+	virtual ~Label();
+
 	//Getters
 	const char* getLabelText() const;
 
 	//Methods
 	void printLabel() const;
-	
+
 };
 
 #endif // LABEL_H

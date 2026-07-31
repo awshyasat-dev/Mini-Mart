@@ -9,15 +9,15 @@ using namespace std;
 
 //Constructors
 BoxedProduct::BoxedProduct(int _barcode)
-	:Product(_barcode), weight(0.0) {
+    :Product(_barcode), Label() {
     // location was built using its default constructor 
-
-	cout << "A BoxedProduct has been created\n" << endl;
+    weight = 0.0;
+    cout << "A BoxedProduct has been created\n" << endl;
 
 }
 
-BoxedProduct::BoxedProduct(int _barcode, const char* _name, double _price, int _inStock, const char* _description, double _weight, char _aisle, int _slot)
-    : Product(_barcode, _name, _price, _inStock, _description), weight(_weight) {
+BoxedProduct::BoxedProduct(int _barcode, const char* _name, double _price, int _inStock, const char* _description, double _weight, char _aisle, int _slot, const char* _label)
+    : Product(_barcode, _name, _price, _inStock, _description), Label(_label), weight(_weight) {
 
     // location was built using its default constructor 
     // so I used setters to fill it
