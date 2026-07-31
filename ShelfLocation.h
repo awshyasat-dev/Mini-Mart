@@ -17,5 +17,9 @@ class ShelfLocation
 
 		// Display Function
 		void displayLocation() const;
+
+		//Setters
+		void setAisle(char _aisle);
+		void setSlot(int _slot);
 };
 #endif
