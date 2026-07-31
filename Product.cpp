@@ -149,6 +149,10 @@ int Product::getStock() const {
     return inStock;
 }
 
+const char* Product::getName() const {
+    return name;
+}
+
 //Members Functions
 
 void Product::addStock(int units) {
@@ -196,4 +200,8 @@ int Product::productCounter = 0;
 
 int Product::getProductCounter() {
     return productCounter;
+}
+
+bool Product::hasExpired() const {
+    return false;
 }

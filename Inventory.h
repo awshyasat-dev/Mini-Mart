@@ -1,0 +1,55 @@
+// 20250410 Omar Mustafa Khalaf
+// 20250226 Basel Ahmed Alquoqa
+// 20250356 Aws Hamdan Al Hiyasat
+
+#ifndef INVENTORY_H
+#define INVENTORY_H
+
+#include <iostream>
+#include "Product.h"
+using namespace std;
+
+/*
+	- This class represents the store's stock: a fixed-size shelf (shop floor)
+	- and a dynamically-sized warehouse (back storage)
+*/
+
+class Inventory
+{
+	private:
+		// Data memebers
+		Product* shelf[50];
+		Product** warehouse;
+		int slotsCount,
+			warehouseSize,
+			warehouseCount;
+
+	public:
+		// Constructor
+		Inventory(int size);
+
+		// Getters
+		int getSlotsCount() const;
+
+		int getWarehouseCount() const;
+
+		// Functions and Methods
+		void addProduct(Product* prod);
+
+		void removeByBarcode(int barcode);
+
+		Product* findByBarcode(int barcode) const;
+
+		Product* findByName(char name[]) const;
+
+		void listShelf() const;
+
+		double sellableStockValue() const;
+
+		void addToShelf(Product* prod);
+
+		// Destructor
+		~Inventory();
+};
+
+#endif

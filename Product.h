@@ -37,6 +37,7 @@ public:
 	int getBarcode() const;
 	double getPrice() const;
 	int getStock() const;
+	const char* getName() const;
 
 	//Member Functions
 
@@ -46,5 +47,6 @@ public:
 	double totalStockValue() const;
 	virtual void displayInfo() const;
 	static int getProductCounter();
+	virtual bool hasExpired() const;
 };
 #endif 
