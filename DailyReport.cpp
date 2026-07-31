@@ -50,9 +50,27 @@ void DailyReport::generate(Inventory& inventory, Order** orders, int orderCount)
 
             // Get a pointer to the ordered product
             Product* orderedProduct = &(orders[i]->product[j]);
+            int requestedQty = orders[i]->quantities[j];
 
             // Search the inventory
-            Product* current = inventory.findByBarcode(orderedProduct->getBarcode());
+            Product* current = nullptr;
+            int targetBarcode = orderedProduct->getBarcode();
+
+            for (int s = 0; s < 50; s++) { // search -> shelf
+                if (inventory.shelf[s] != nullptr && inventory.shelf[s]->getBarcode() == targetBarcode) {
+                    current = inventory.shelf[s];
+                    break;
+                }
+            }
+
+            if (current == nullptr) { // search -> warehouse
+                for (int w = 0; w < inventory.warehouseSize; w++) {
+                    if (inventory.warehouse[w] != nullptr && inventory.warehouse[w]->getBarcode() == targetBarcode) {
+                        current = inventory.warehouse[w];
+                        break;
+                    }
+                }
+            }
 
             if (current == nullptr) {
                 cout << "[WARNING] Product from Order #"
@@ -61,6 +79,17 @@ void DailyReport::generate(Inventory& inventory, Order** orders, int orderCount)
                     << "(Barcode "
                     << orderedProduct->getBarcode()
                     << ")." << endl;
+
+                disFound = true;
+            }
+            else if (current->getStock() < requestedQty) {
+                // Case 2: product exists, but not enough stock to cover what was ordered
+                cout << "[WARNING] Order #" << orders[i]->getOrderNumber()
+                    << " requested " << requestedQty
+                    << " of \"" << current->getName() << "\""
+                    << " but only " << current->getStock()
+                    << " are available in inventory."
+                    << endl;
 
                 disFound = true;
             }

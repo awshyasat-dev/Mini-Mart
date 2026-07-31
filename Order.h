@@ -39,6 +39,15 @@ public:
 	int getOrderNumber() const;
 
 	// Friend class
+	/*
+		- DailyReport is granted friend access to read private order data (items, quantities)
+		  because a daily report must compare orders against inventory as a whole
+
+		- This is safe because access is limited to exactly one named class (DailyReport)
+		  unlike making the members public which would expose them to the entire program.
+		  DailyReport only READS this data to generate the report, it never modifies
+		  Order's private members, so Order's invariants remain fully protected
+	*/
 	friend class DailyReport;
 };
 
