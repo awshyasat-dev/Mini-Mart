@@ -3,6 +3,7 @@
 //Omar Khalaf 20250410
 #include "Order.h"
 #include "Inventory.h"
+#include "Product.h"
 #include <string>
 #include <iostream>
 using namespace std;

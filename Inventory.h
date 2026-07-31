@@ -50,6 +50,9 @@ class Inventory
 
 		// Destructor
 		~Inventory();
+
+		// Friend class
+		friend class DailyReport;
 };
 
 #endif

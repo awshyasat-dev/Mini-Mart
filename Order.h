@@ -37,6 +37,9 @@ public:
 
 	//getter
 	int getOrderNumber() const;
+
+	// Friend class
+	friend class DailyReport;
 };
 
 #endif 

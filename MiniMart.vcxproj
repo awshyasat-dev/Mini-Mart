@@ -139,6 +139,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DailyReport.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Order.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="Supplier.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DailyReport.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Order.h" />
     <ClInclude Include="Product.h" />
