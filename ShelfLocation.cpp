@@ -12,3 +12,10 @@ void ShelfLocation::displayLocation() const {
 	*/
 	cout << "Aisle: " << aisleLetter << ", Slot: " << slotNumber << endl;
 }
+void ShelfLocation::setAisle(char _aisle) {
+	aisleLetter = _aisle;
+}
+
+void ShelfLocation::setSlot(int _slot) {
+	slotNumber = _slot;
+}
