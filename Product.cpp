@@ -10,6 +10,7 @@ using namespace std;
 
 Product::Product(int _barcode) :
     barcode(_barcode) {
+    name = new char[1];
     name[0] = '\0';
     price = 0.0;
     inStock = 0;
@@ -25,6 +26,9 @@ Product::Product(int _barcode, const char* _name, double _price, int _inStock, c
     for (int i = 0; _name[i] != '\0'; i++) {
         countChar++;
     }
+
+    name = new char[countChar + 1];
+
     for (int i = 0; i <= countChar; i++) {
         name[i] = _name[i];
     }
@@ -60,6 +64,9 @@ Product::Product(const Product& other) :
     for (int i = 0; other.name[i] != '\0'; i++) {
         countChar++;
     }
+
+    name = new char[countChar + 1];
+
     for (int i = 0; i <= countChar; i++) {
         name[i] = other.name[i];
     }
@@ -94,6 +101,7 @@ Product::Product(const Product& other) :
 //Destructors
 
 Product::~Product() {
+    delete[] name;
     delete[] description;
     cout << "A product has been removed\n" << endl;
     productCounter--;
@@ -102,11 +110,16 @@ Product::~Product() {
 //Setters
 
 Product& Product::setName(const char* newName) {
+    delete[] name;
+
     int countChar = 0;
 
     for (int i = 0; newName[i] != '\0'; i++) {
         countChar++;
     }
+
+    name = new char[countChar + 1];
+
     for (int i = 0; i <= countChar; i++) {
         name[i] = newName[i];
     }

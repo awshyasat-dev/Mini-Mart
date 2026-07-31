@@ -9,7 +9,7 @@ class Product
 {
 private:
 	const int barcode;
-	char name[100];
+	char* name;
 	double price;
 	int inStock;
 	char* description;
