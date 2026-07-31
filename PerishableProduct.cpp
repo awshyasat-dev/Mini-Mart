@@ -9,17 +9,17 @@ using namespace std;
 //Constructors
 PerishableProduct::PerishableProduct(int _barcode) 
     : Product(_barcode), storageTemp(0.0), daysLeft(0) {
-    cout << "A PerishableProduct has been created\n" << endl;
+    cout << "A Perishable Product has been created\n" << endl;
 }
 
 PerishableProduct::PerishableProduct(int _barcode, const char* _name, double _price, int _inStock, const char* _description, double _temp, int _days)
     : Product(_barcode, _name, _price, _inStock, _description), storageTemp(_temp), daysLeft(_days) {
-    cout << "A PerishableProduct has been created\n" << endl;
+    cout << "A Perishable Product has been created\n" << endl;
 }
 
 // Destructor
 PerishableProduct::~PerishableProduct() {
-    cout << "A PerishableProduct has been removed\n" << endl;
+    cout << "A Perishable Product has been removed\n" << endl;
 }
 
 bool PerishableProduct::hasExpired() const {
