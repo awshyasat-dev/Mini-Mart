@@ -1,3 +1,6 @@
+// 20250410 Omar Mustafa Khalaf
+// 20250226 Basel Ahmed Alquoqa
+// 20250356 Aws Hamdan Al Hiyasat
 #include <iostream>
 #include <string>
 #include "Product.h"
@@ -13,6 +16,7 @@
 #include "DailyReport.h"
 using namespace std;
 int main() {
+    //taking data 
     DailyReport report;
     cout << "Current Product Count: " << Product::getProductCount() << endl;
     int warehouseSize;
@@ -51,11 +55,8 @@ int main() {
         storeAddress[i] = storeAddressStr[i];
 
     storeAddress[len] = '\0';
-
-
     Supplier supplier;
     Store store(storeName, storeAddress, warehouseSize, &supplier);
-
     delete[] storeName;
     delete[] storeAddress;
 
@@ -63,11 +64,17 @@ int main() {
     int capacity = 5;
     int orderCount = 0;
     Order** orders = new Order * [capacity];
+    //starting the menu
+    ShelfLocation loc;
+    loc.setAisle('A');
+    loc.setSlot(1);
+
+    const BoxedProduct oliveOil(1001, "Olive Oil 1L", 4.25, 50, 1.0, loc);
 
     int choice;
     store.openStore();
     do
-    {
+    {   //print the menu
         cout << "\n========== MiniMart ==========\n";
         cout << "1. Add a product to the shelf\n";
         cout << "2. Add a product to the warehouse\n";
@@ -87,19 +94,14 @@ int main() {
         cout << "16. Close the shop and exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
-        ShelfLocation loc;
-        loc.setAisle('A');
-        loc.setSlot(1);
-
-        const BoxedProduct oliveOil(1001, "Olive Oil 1L", 4.25, 50, 1.0, loc);
-
+        // Case 1: Add a product to the shelf
         if (choice == 1) {
             string name;
             double price;
             int stock;
             int barcode;
             int type;
-
+            //taking the type
             cout << "Enter product type (1=Boxed, 2=Perishable, 3=Digital): ";
             cin >> type;
             cin.ignore();
@@ -127,12 +129,13 @@ int main() {
 
             cout << "Enter stock: ";
             cin >> stock;
-
+            //checking before continue 
             if (store.getStoreInventory()->getSlotsCount() >= 50)
             {
                 cout << "Shelf is full. Cannot add product.\n";
                 delete[] productName;
             }
+
             else if (type == 1)
             {
                 double weight;
@@ -211,6 +214,7 @@ int main() {
                 delete[] productName;
             }
         }
+        // Case 2: Add a product to the warehouse
         else if (choice == 2) {
             string name;
             double price;
@@ -321,10 +325,12 @@ int main() {
                 delete[] productName;
             }
         }
+        // Case 3: Display all products on the shelf
         else if (choice == 3) {
             cout << "\n--- Products on the Shelf ---\n";
             store.getStoreInventory()->listShelf();
         }
+        // Case 4: Search for a product using its barcode
         else if (choice == 4) {
             int barcode;
             cout << "Enter barcode to search: ";
@@ -338,6 +344,7 @@ int main() {
                 p->displayInfo();
             }
         }
+        // Case 5: Search for a product by its name
         else if (choice == 5) {
             string name;
 
@@ -366,7 +373,7 @@ int main() {
             }
 
             delete[] productName;
-        }
+        }       // Case 6: Remove a product using its barcode
         else if (choice == 6) {
             int barcode;
             cout << "Enter barcode to remove: ";
@@ -381,6 +388,7 @@ int main() {
                 cout << "Product removed.\n";
             }
         }
+        // Case 7: Add supplier information and delivered products
         else if (choice == 7) {
             string companyName;
             cout << "Enter company name: ";
@@ -414,7 +422,6 @@ int main() {
 
             phone[len] = '\0';
 
-
             string addressStr;
             cout << "Enter address: ";
             getline(cin, addressStr);
@@ -430,12 +437,9 @@ int main() {
 
             address[len] = '\0';
 
-
             store.getStoreSupplier()->setCompanyName(company);
             store.getStoreSupplier()->setPhoneNumber(phone);
             store.getStoreSupplier()->setAddress(address);
-
-
 
             int count;
             cout << "How many products does this supplier deliver? ";
@@ -456,6 +460,7 @@ int main() {
 
             cout << "Supplier added successfully.\n";
         }
+        // Case 8: Create a new customer order
         else if (choice == 8) {
             string name;
             cout << "Enter customer name: ";
@@ -485,15 +490,13 @@ int main() {
 
             cout << "Order created successfully.\n";
         }
+        // Case 9: Add a product to an existing order
         else if (choice == 9)
         {
             int orderNumber;
-
             cout << "Enter order number: ";
             cin >> orderNumber;
-
             Order* selectedOrder = nullptr;
-
             for (int i = 0; i < orderCount; i++)
             {
                 if (orders[i]->getOrderNumber() == orderNumber)
@@ -502,53 +505,37 @@ int main() {
                     break;
                 }
             }
-
             if (selectedOrder == nullptr)
             {
                 cout << "Order not found.\n";
             }
-            else
-            {
+            else {
                 int barcode;
                 cout << "Enter product barcode: ";
                 cin >> barcode;
-
                 Product* p = store.getStoreInventory()->findByBarcode(barcode);
-
-                if (p == nullptr)
-                {
-                    cout << "Product not found.\n";
-                }
-                else
-                {
+                if (p == nullptr) { cout << "Product not found.\n"; }
+                else {
                     int quantity;
-
                     cout << "Enter quantity: ";
                     cin >> quantity;
-
-                    selectedOrder->addItem(*p, quantity);
-
+                    selectedOrder->addItem(p, quantity);
                     cout << "Item added successfully.\n";
                 }
             }
         }
-
+        // Case 10: Merge two orders from the same customer
         else if (choice == 10)
         {
             int firstNumber;
             int secondNumber;
-
             cout << "Enter first order number: ";
             cin >> firstNumber;
-
             cout << "Enter second order number: ";
             cin >> secondNumber;
-
             Order* firstOrder = nullptr;
             Order* secondOrder = nullptr;
-
-            for (int i = 0; i < orderCount; i++)
-            {
+            for (int i = 0; i < orderCount; i++) {
                 if (orders[i]->getOrderNumber() == firstNumber)
                     firstOrder = orders[i];
 
@@ -556,57 +543,44 @@ int main() {
                     secondOrder = orders[i];
             }
 
-            if (firstOrder == nullptr || secondOrder == nullptr)
-            {
-                cout << "Order not found.\n";
-            }
-            else
-            {
+            if (firstOrder == nullptr || secondOrder == nullptr) { cout << "Order not found.\n"; }
+            else {
                 firstOrder->mergeWith(*secondOrder);
-
                 cout << "Orders merged successfully.\n";
             }
         }
-
-        else if (choice == 11)
-        {
+        // Case 11: Complete the selected order
+        else if (choice == 11) {
             int orderNumber;
-
             cout << "Enter order number: ";
             cin >> orderNumber;
-
             Order* selectedOrder = nullptr;
-
-            for (int i = 0; i < orderCount; i++)
-            {
-                if (orders[i]->getOrderNumber() == orderNumber)
-                {
+            for (int i = 0; i < orderCount; i++) {
+                if (orders[i]->getOrderNumber() == orderNumber) {
                     selectedOrder = orders[i];
                     break;
                 }
             }
 
-            if (selectedOrder == nullptr)
-            {
-                cout << "Order not found.\n";
-            }
-            else
-            {
+            if (selectedOrder == nullptr) { cout << "Order not found.\n"; }
+            else {
                 selectedOrder->complete(*store.getStoreInventory());
 
-                cout << "Order completed successfully.\n";
             }
         }
+        // Case 12: Print the total sellable stock value
         else if (choice == 12) {
             cout << "Sellable Stock Value = "
                 << store.getStoreInventory()->sellableStockValue()
                 << endl;
         }
+        // Case 13: Display the current product count
         else if (choice == 13) {
             cout << "Current Product Count = "
                 << Product::getProductCount()
                 << endl;
         }
+        // Case 14: Print labels
         else if (choice == 14) {
             string text;
             cin.ignore();
@@ -623,9 +597,11 @@ int main() {
             l.printLabel();
             delete[] labelText;
         }
+        // Case 15: Generate the end-of-day report
         else if (choice == 15) {
             report.generate(*store.getStoreInventory(), orders, orderCount);
         }
+        // Case 16: Close the store and exit the program
         else if (choice == 16) {
             cout << "Closing shop...\n";
             cout << "Goodbye!\n";
@@ -635,7 +611,7 @@ int main() {
             cout << "INVALID CHOICE\n";
     } while (choice != 16);
 
-
+    //delete 
     for (int i = 0; i < orderCount; i++) { delete orders[i]; }
     delete[] orders;
 
