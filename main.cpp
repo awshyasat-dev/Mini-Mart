@@ -18,7 +18,7 @@ using namespace std;
 int main() {
     //taking data 
     DailyReport report;
-    cout << "Current Product Count: " << Product::getProductCount() << endl;
+    cout << "Current Product Count: " << Product::getProductCounter() << endl;
     int warehouseSize;
     do {
         cout << "Enter warehouse size: ";
@@ -65,11 +65,8 @@ int main() {
     int orderCount = 0;
     Order** orders = new Order * [capacity];
     //starting the menu
-    ShelfLocation loc;
-    loc.setAisle('A');
-    loc.setSlot(1);
 
-    const BoxedProduct oliveOil(1001, "Olive Oil 1L", 4.25, 50, 1.0, loc);
+    const BoxedProduct oliveOil(1001, "Olive Oil 1L", 4.25, 50, "Extra Virgin Olive Oil", 1.0, 'A', 1, "Olive Oil");
 
     int choice;
     store.openStore();
@@ -129,11 +126,30 @@ int main() {
 
             cout << "Enter stock: ";
             cin >> stock;
+
+            cin.ignore();
+
+            string descriptionStr;
+            cout << "Enter product description: ";
+            getline(cin, descriptionStr);
+
+            int descLen = 0;
+            while (descriptionStr[descLen] != '\0')
+                descLen++;
+
+            char* description = new char[descLen + 1];
+
+            for (int i = 0; i < descLen; i++)
+                description[i] = descriptionStr[i];
+
+            description[descLen] = '\0';
+
             //checking before continue 
             if (store.getStoreInventory()->getSlotsCount() >= 50)
             {
                 cout << "Shelf is full. Cannot add product.\n";
                 delete[] productName;
+                delete[] description;
             }
 
             else if (type == 1)
@@ -150,16 +166,29 @@ int main() {
 
                 cout << "Enter slot number: ";
                 cin >> slot1;
+                cin.ignore();
+                string labelStr;
+                cout << "Enter label text: ";
+                getline(cin, labelStr);
 
-                ShelfLocation loc;
-                loc.setAisle(aisle1);
-                loc.setSlot(slot1);
+                int labelLen = 0;
+                while (labelStr[labelLen] != '\0')
+                    labelLen++;
 
-                BoxedProduct* p = new BoxedProduct(barcode, productName, price, stock, weight, loc);
+                char* labelText = new char[labelLen + 1];
+
+                for (int i = 0; i < labelLen; i++)
+                    labelText[i] = labelStr[i];
+
+                labelText[labelLen] = '\0';
+                BoxedProduct* p = new BoxedProduct(barcode, productName, price, stock, description, weight, aisle1, slot1, labelText);
 
                 store.getStoreInventory()->addToShelf(p);
 
+                delete[] description;
+                delete[] labelText;
                 delete[] productName;
+
             }
             else if (type == 2)
             {
@@ -172,10 +201,19 @@ int main() {
                 cout << "Enter days left before expiry: ";
                 cin >> daysLeft1;
 
-                PerishableProduct* p = new PerishableProduct(barcode, productName, price, stock, temp1, daysLeft1);
+                PerishableProduct* p = new PerishableProduct(
+                    barcode,
+                    productName,
+                    price,
+                    stock,
+                    description,
+                    temp1,
+                    daysLeft1
+                );
 
                 store.getStoreInventory()->addToShelf(p);
 
+                delete[] description;
                 delete[] productName;
             }
             else if (type == 3)
@@ -201,8 +239,17 @@ int main() {
 
                 licenceName[len] = '\0';
 
-                DigitalProduct* p = new DigitalProduct(barcode, productName, price, stock, size1, licenceName);
+                DigitalProduct* p = new DigitalProduct(
+                    barcode,
+                    productName,
+                    price,
+                    stock,
+                    description,
+                    size1,
+                    licenceName
+                );
 
+                delete[] description;
                 store.getStoreInventory()->addToShelf(p);
 
                 delete[] productName;
@@ -212,6 +259,7 @@ int main() {
             {
                 cout << "Invalid product type.\n";
                 delete[] productName;
+                delete[] description;
             }
         }
         // Case 2: Add a product to the warehouse
@@ -249,6 +297,22 @@ int main() {
 
             cout << "Enter stock: ";
             cin >> stock;
+            cin.ignore();
+
+            string descriptionStr;
+            cout << "Enter product description: ";
+            getline(cin, descriptionStr);
+
+            int descLen = 0;
+            while (descriptionStr[descLen] != '\0')
+                descLen++;
+
+            char* description = new char[descLen + 1];
+
+            for (int i = 0; i < descLen; i++)
+                description[i] = descriptionStr[i];
+
+            description[descLen] = '\0';
 
             if (type == 1) {
                 double weight;
@@ -264,15 +328,27 @@ int main() {
 
                 cout << "Enter slot number: ";
                 cin >> slot1;
+                cin.ignore();
+                string labelStr;
+                cout << "Enter label text: ";
+                getline(cin, labelStr);
 
-                ShelfLocation loc;
-                loc.setAisle(aisle1);
-                loc.setSlot(slot1);
+                int labelLen = 0;
+                while (labelStr[labelLen] != '\0')
+                    labelLen++;
 
-                BoxedProduct* p = new BoxedProduct(barcode, productName, price, stock, weight, loc);
+                char* labelText = new char[labelLen + 1];
+
+                for (int i = 0; i < labelLen; i++)
+                    labelText[i] = labelStr[i];
+
+                labelText[labelLen] = '\0';
+                BoxedProduct* p = new BoxedProduct(barcode, productName, price, stock, description, weight, aisle1, slot1, labelText);
 
                 store.getStoreInventory()->addProduct(p);
 
+                delete[] description;
+                delete[] labelText;
                 delete[] productName;
             }
             else if (type == 2) {
@@ -285,10 +361,19 @@ int main() {
                 cout << "Enter days left before expiry: ";
                 cin >> daysLeft1;
 
-                PerishableProduct* p = new PerishableProduct(barcode, productName, price, stock, temp1, daysLeft1);
+                PerishableProduct* p = new PerishableProduct(
+                    barcode,
+                    productName,
+                    price,
+                    stock,
+                    description,
+                    temp1,
+                    daysLeft1
+                );
 
                 store.getStoreInventory()->addProduct(p);
 
+                delete[] description;
                 delete[] productName;
             }
             else if (type == 3) {
@@ -313,7 +398,17 @@ int main() {
 
                 licenceName[len] = '\0';
 
-                DigitalProduct* p = new DigitalProduct(barcode, productName, price, stock, size1, licenceName);
+                DigitalProduct* p = new DigitalProduct(
+                    barcode,
+                    productName,
+                    price,
+                    stock,
+                    description,
+                    size1,
+                    licenceName
+                );
+
+                delete[] description;
 
                 store.getStoreInventory()->addProduct(p);
 
@@ -323,6 +418,7 @@ int main() {
             else {
                 cout << "Invalid product type.\n";
                 delete[] productName;
+                delete[] description;
             }
         }
         // Case 3: Display all products on the shelf
@@ -577,7 +673,7 @@ int main() {
         // Case 13: Display the current product count
         else if (choice == 13) {
             cout << "Current Product Count = "
-                << Product::getProductCount()
+                << Product::getProductCounter()
                 << endl;
         }
         // Case 14: Print labels
